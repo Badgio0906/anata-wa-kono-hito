@@ -27,7 +27,7 @@ canvas{display:block;width:100%;height:100%;outline:none;touch-action:none}
 const frame=document.getElementById('frame'),stage=document.getElementById('stage'),statusBox=document.getElementById('status');
 function fit(){const r=stage.getBoundingClientRect(),s=Math.min(r.width/960,r.height/540);frame.style.width=(960*s)+'px';frame.style.height=(540*s)+'px'}
 addEventListener('resize',fit);if(window.visualViewport)visualViewport.addEventListener('resize',fit);fit();
-const config={"args":[],"canvasResizePolicy":0,"emscriptenPoolSize":8,"ensureCrossOriginIsolationHeaders":true,"executable":"index","experimentalVK":false,"fileSizes":{"index.pck":36712968,"index.wasm":38034280},"focusCanvas":true,"gdextensionLibs":[],"godotPoolSize":4};
+const config={"args":[],"canvasResizePolicy":0,"emscriptenPoolSize":8,"ensureCrossOriginIsolationHeaders":true,"executable":"index","experimentalVK":false,"fileSizes":{"index.pck":41002852,"index.wasm":38034280},"focusCanvas":true,"gdextensionLibs":[],"godotPoolSize":4};
 config.canvas=document.getElementById('canvas');config.canvasResizePolicy=0;
 config.onProgress=(current,total)=>{statusBox.textContent=total?'写真を読み込んでいます…… '+Math.round(current/total*100)+'%':'写真を読み込んでいます……'};
 config.onPrintError=(...args)=>console.error(...args);
