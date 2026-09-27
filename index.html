@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#101a2a">
+<title>あなたはこの人を知っていますか？</title>
+<style>
+html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#090e18;color:#d9e2ed;font-family:system-ui,sans-serif;touch-action:none;overscroll-behavior:none}
+#stage{position:fixed;inset:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);display:flex;align-items:center;justify-content:center}
+#frame{position:relative;flex:none}
+canvas{display:block;width:100%;height:100%;outline:none;touch-action:none}
+#status{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;text-align:center;background:#101a2a;z-index:2;line-height:1.9;padding:24px;box-sizing:border-box}
+#rotate{position:fixed;inset:0;display:none;align-items:center;justify-content:center;text-align:center;background:#101a2a;z-index:5;font-size:clamp(20px,5vw,30px);line-height:1.8;padding:24px}
+@media(orientation:portrait){#rotate{display:flex}}
+</style>
+<link id="-gd-engine-icon" rel="icon" type="image/png" href="index.icon.png" />
+<link rel="apple-touch-icon" href="index.apple-touch-icon.png"/>
+
+</head>
+<body>
+<div id="stage"><div id="frame"><canvas id="canvas" width="960" height="540" tabindex="0" aria-label="あなたはこの人を知っていますか？ ゲーム画面。Enterで決定、方向キーで選択。">WebGL 2対応のブラウザをご利用ください。</canvas></div></div>
+<div id="status" role="status">写真を読み込んでいます……<br>初回は少し時間がかかります。</div>
+<div id="rotate">このゲームは横向きで<br>遊んでください。<br><br>端末を横にすると再開します。</div>
+<script src="index.js"></script>
+<script>
+const frame=document.getElementById('frame'),stage=document.getElementById('stage'),statusBox=document.getElementById('status');
+function fit(){const r=stage.getBoundingClientRect(),s=Math.min(r.width/960,r.height/540);frame.style.width=(960*s)+'px';frame.style.height=(540*s)+'px'}
+addEventListener('resize',fit);if(window.visualViewport)visualViewport.addEventListener('resize',fit);fit();
+const config={"args":[],"canvasResizePolicy":0,"emscriptenPoolSize":8,"ensureCrossOriginIsolationHeaders":true,"executable":"index","experimentalVK":false,"fileSizes":{"index.pck":35246720,"index.wasm":38034280},"focusCanvas":true,"gdextensionLibs":[],"godotPoolSize":4};
+config.canvas=document.getElementById('canvas');config.canvasResizePolicy=0;
+config.onProgress=(current,total)=>{statusBox.textContent=total?'写真を読み込んでいます…… '+Math.round(current/total*100)+'%':'写真を読み込んでいます……'};
+config.onPrintError=(...args)=>console.error(...args);
+const engine=new Engine(config);
+engine.startGame().then(()=>{statusBox.style.display='none';document.getElementById('canvas').focus();window.gameReady=true}).catch(error=>{statusBox.textContent='起動できませんでした。WebGL 2対応ブラウザで再読み込みしてください。\n'+error.message;console.error(error)});
+</script>
+</body></html>
+
